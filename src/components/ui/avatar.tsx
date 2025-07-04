@@ -1,27 +1,17 @@
-import * as React from "react";
+import React from "react";
 
-export function Avatar({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
-      {children}
-    </div>
-  );
+interface AvatarProps extends React.HTMLAttributes<HTMLDivElement> {
+  children: React.ReactNode;
 }
 
-export function AvatarImage({ src }: { src: string }) {
-  return (
-    <img
-      src={src}
-      className="w-8 h-8 rounded-full object-cover"
-      alt="avatar"
-    />
-  );
-}
+export const Avatar: React.FC<AvatarProps> = ({ className, children, ...props }) => (
+  <div className={`rounded-full overflow-hidden ${className ?? ''}`} {...props}>
+    {children}
+  </div>
+);
 
-export function AvatarFallback({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="text-xs font-semibold">
-      {children}
-    </span>
-  );
-}
+interface AvatarImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {}
+
+export const AvatarImage: React.FC<AvatarImageProps> = ({ className, ...props }) => (
+  <img className={className} {...props} />
+);
