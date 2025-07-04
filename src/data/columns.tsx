@@ -1,4 +1,4 @@
-import { Column, CellProps } from 'react-table';
+import type { Column, CellProps } from 'react-table';
 
 export interface JobRow {
   jobRequest: string;
