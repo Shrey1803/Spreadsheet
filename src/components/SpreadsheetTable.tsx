@@ -4,18 +4,32 @@ import {
   useColumnOrder,
   useBlockLayout,
 } from 'react-table';
+import type { ColumnInstance } from 'react-table';
 import { columns } from '../data/columns';
+import type { JobRow } from '../data/columns';
 import { mockData } from '../data/mockData';
 import { useEffect, useState } from 'react';
 
+const EMPTY_ROW: JobRow = {
+  jobRequest: '',
+  submitted: '',
+  status: '',
+  submitter: '',
+  url: '',
+  assigned: '',
+  priority: '',
+  dueDate: '',
+  value: '',
+};
+
 export default function SpreadsheetTable() {
   const [activeCell, setActiveCell] = useState<{ row: number; col: number } | null>(null);
-  const [tableData, setTableData] = useState([...mockData]);
+  const [tableData, setTableData] = useState<JobRow[]>([...mockData]);
 
   // Ensure at least 20 rows are visible
   useEffect(() => {
     if (tableData.length < 20) {
-      const emptyRows = Array.from({ length: 20 - tableData.length }, () => ({}));
+      const emptyRows = Array.from({ length: 20 - tableData.length }, () => ({ ...EMPTY_ROW }));
       setTableData((prev) => [...prev, ...emptyRows]);
     }
   }, [tableData]);
@@ -27,7 +41,7 @@ export default function SpreadsheetTable() {
     rows,
     prepareRow,
     allColumns,
-  } = useTable(
+  } = useTable<JobRow>(
     {
       columns,
       data: tableData,
@@ -50,7 +64,7 @@ export default function SpreadsheetTable() {
 
   const handleCellEdit = (rowIndex: number) => {
     if (rowIndex === tableData.length - 1) {
-      setTableData((prev) => [...prev, {}]);
+      setTableData((prev) => [...prev, { ...EMPTY_ROW }]);
     }
   };
 
@@ -59,18 +73,18 @@ export default function SpreadsheetTable() {
       <div className="mb-3">
         <button
           className="mr-2 px-3 py-1 border rounded bg-blue-100 text-sm"
-          onClick={() => console.log('Add row')}
+          onClick={() => setTableData((prev) => [...prev, { ...EMPTY_ROW }])}
         >
           + Add Row
         </button>
-        {allColumns.map((column) => (
+        {allColumns.map((column: ColumnInstance<JobRow>) => (
           <label key={column.id} className="mr-3 text-sm">
             <input
               type="checkbox"
               {...column.getToggleHiddenProps()}
               className="mr-1"
             />
-            {column.headerLabel || (typeof column.Header === 'string' ? column.Header : column.id)}
+            {typeof column.Header === 'string' ? column.Header : column.id}
           </label>
         ))}
       </div>
@@ -83,24 +97,24 @@ export default function SpreadsheetTable() {
         <table
           {...getTableProps()}
           className="table-auto text-sm text-left min-w-full border-separate border-spacing-0"
-          // style={{ tableLayout: 'fixed' }} // Remove/comment this for natural wrapping
         >
           <thead className="text-xs text-gray-600 uppercase">
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()} className="bg-gray-100">
-                {headerGroup.headers.map((column) => (
+                {headerGroup.headers.map((column: ColumnInstance<JobRow>) => (
                   <th
-                    {...column.getHeaderProps()}
-                    className="p-2 border-b border-r font-semibold relative bg-gray-100 whitespace-normal break-words"
-                  >
-                    {column.render('Header')}
-                    {column.canResize && (
-                      <div
-                        {...column.getResizerProps()}
-                        className="absolute top-0 right-0 w-1 h-full cursor-col-resize bg-gray-300"
-                      />
-                    )}
-                  </th>
+  {...column.getHeaderProps()}
+  className="p-2 border-b border-r font-semibold relative bg-gray-100 whitespace-normal break-words"
+>
+  {column.render('Header')}
+  {(column as any).canResize && (
+    <div
+      {...(column as any).getResizerProps()}
+      className="absolute top-0 right-0 w-1 h-full cursor-col-resize bg-gray-300"
+    />
+  )}
+</th>
+
                 ))}
               </tr>
             ))}
