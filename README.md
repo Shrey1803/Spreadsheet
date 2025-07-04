@@ -1,69 +1,89 @@
-# React + TypeScript + Vite
+# React Spreadsheet UI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, customizable spreadsheet interface built with React, TypeScript, and Vite.  
+Features multiple tabs, custom toolbars, dynamic columns, and a clean, responsive UI.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Spreadsheet-like table with editable cells
+- Multiple sheets/tabs support
+- Customizable columns and mock data
+- Toolbar with spreadsheet actions
+- Bottom tab bar navigation
+- Reusable UI components (Avatar, Button, Input)
+- Built with React, TypeScript, Vite, and Tailwind CSS
 
-## Expanding the ESLint configuration
+## 📁 Project Structure
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+spreadsheet-ui/
+├── public/
+├── src/
+│ ├── assets/
+│ │ └── react.svg
+│ ├── components/
+│ │ ├── BottomTabBar.tsx
+│ │ ├── SpreadsheetHeader.tsx
+│ │ ├── SpreadsheetTabs.tsx
+│ │ ├── SpreadsheetToolbar.tsx
+│ │ ├── TopHeader.tsx
+│ │ └── ui/
+│ │ ├── avatar.tsx
+│ │ ├── button.tsx
+│ │ └── input.tsx
+│ ├── data/
+│ │ ├── columns.tsx
+│ │ └── mockData.ts
+│ ├── lib/
+│ │ └── utils.ts
+│ ├── App.css
+│ ├── App.tsx
+│ ├── index.css
+│ ├── main.tsx
+│ └── vite-env.d.ts
+├── index.html
+├── .gitignore
+├── package.json
+├── tsconfig.json
+├── vite.config.ts
+├── tailwind.config.js
+├── postcss.config.js
+└── README.md
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🚀 Getting Started
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+1. **Clone the repository:**
+git clone https://github.com/Shrey1803/Spreadsheet.git
+cd Spreadsheet
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+2. **Install dependencies:**
+npm install
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+3. **Start the development server:**
+npm run dev
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+4. Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🛠️ Technologies Used
+
+- [React](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+
+## 📦 Scripts
+
+- `npm run dev` — Start development server
+- `npm run build` — Build for production
+- `npm run preview` — Preview production build
+
+## ⚖️ Trade-offs
+
+- The UI is closely matched to the Figma design, but advanced interactivity and business logic are minimal.
+- Responsiveness and accessibility may require additional work beyond the initial UI translation.
+- The focus is on visual fidelity; further enhancements are needed for a production-ready, interactive app.
+
+
+## 🤝 Contributing
+
+Contributions are welcome!  
+Feel free to open issues or submit pull requests.
